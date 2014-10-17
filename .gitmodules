@@ -1,0 +1,6 @@
+[submodule "ac-R"]
+	path = ac-R
+	url = ./el-get/ac-R
+[submodule "auto-complete-clang"]
+	path = auto-complete-clang
+	url = ./el-get/auto-complete-clang

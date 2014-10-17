@@ -1,0 +1,5 @@
+*.elc
+*.directory
+.saves
+.cask
+\#*\#
