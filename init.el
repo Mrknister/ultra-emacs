@@ -32,12 +32,9 @@
 (setq-default c-basic-offset 4)
 (setq-default d-basic-offset 4)
 
-;; show line numbers
-(global-linum-mode 1)
 
 ;;setup elGet
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -45,9 +42,9 @@
     (let (el-get-master-branch)
       (goto-char (point-max))
       (eval-print-last-sexp))))
+(setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
+
 
 
 ;; use flycheck
@@ -80,8 +77,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-dcd-executable "~/.emacs.d/myplugins/DCD/bin/dcd-client")
- '(ac-dcd-server-executable "~/.emacs.d/myplugins/DCD/bin/dcd-server")
+ '(ac-dcd-executable "/home/jan/.emacs.d/myplugins/DCD/bin/dcd-client")
+ '(ac-dcd-server-executable "/home/jan/.emacs.d/myplugins/DCD/bin/dcd-server")
  '(custom-buffer-indent 4)
  '(custom-safe-themes (quote ("3b819bba57a676edf6e4881bd38c777f96d1aa3b3b5bc21d8266fa5b0d0f1ebf" default)))
  '(electric-indent-mode t))
@@ -96,6 +93,7 @@
 (require 'tree-mode)
 (require 'windata)
 (require 'dirtree)
+(require 'dired+)
 
 ;; autoindent
 (add-hook 'rust-mode-hook '(lambda ()
