@@ -49,7 +49,7 @@
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
 (setq my-packages
       '(ac-R auto-complete auto-complete-clang cc-mode+ cmake-mode d-mode dired+ el-get fuzzy ghc-mod haskell-mode init-yasnippet popup yasnippet yasnippets))
-(el-get 'sync)
+(el-get 'sync my-packages)
 
 
 
