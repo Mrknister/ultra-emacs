@@ -2,6 +2,13 @@
 
 ;;; Commentary:
 ;;; Code:
+
+
+
+;; add the config directory to the loadpath
+(add-to-list 'load-path "~/.emacs.d/myplugins")
+
+
 (require 'package)
 
 ;; dont open the startup screen
@@ -23,9 +30,6 @@
 
 
 
-;; add the config directory to the loadpath
-(add-to-list 'load-path "/home/jan/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/myplugins")
 
 ;; always autoindent to four spaces
 (electric-indent-mode +1)
@@ -43,7 +47,9 @@
       (goto-char (point-max))
       (eval-print-last-sexp))))
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
-
+(setq my-packages
+      '(ac-R auto-complete auto-complete-clang cc-mode+ cmake-mode d-mode dired+ el-get fuzzy ghc-mod haskell-mode init-yasnippet popup yasnippet yasnippets))
+(el-get 'sync)
 
 
 
@@ -56,13 +62,15 @@
 ;; Auto Completion
 
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/home/jan/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
 
 ;;; d-mode
-(add-to-list 'load-path "~/.emacs.d/el-get/d-mode/")
-(autoload 'd-mode "d-mode" "Major mode for editing D code." t)
+;(add-to-list 'load-path "~/.emacs.d/el-get/d-mode/")
+;(autoload 'd-mode "d-mode" "Major mode for editing D code." t)
+
+(el-get-init "d-mode")
 (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 
 (require 'flycheck-dmd-dub)
@@ -72,13 +80,15 @@
 (require 'ac-dcd)
 (add-hook 'd-mode-hook 'ac-dcd-setup)
 
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-dcd-executable "/home/jan/.emacs.d/myplugins/DCD/bin/dcd-client")
- '(ac-dcd-server-executable "/home/jan/.emacs.d/myplugins/DCD/bin/dcd-server")
+ '(ac-dcd-executable "~/.emacs.d/myplugins/DCD/bin/dcd-client")
+ '(ac-dcd-server-executable "~/.emacs.d/myplugins/DCD/bin/dcd-server")
  '(custom-buffer-indent 4)
  '(custom-safe-themes (quote ("3b819bba57a676edf6e4881bd38c777f96d1aa3b3b5bc21d8266fa5b0d0f1ebf" default)))
  '(electric-indent-mode t))
@@ -93,7 +103,20 @@
 (require 'tree-mode)
 (require 'windata)
 (require 'dirtree)
-(require 'dired+)
+
+
+
+(el-get-init "dired+")
+(define-key dired-mode-map [mouse-2] 'diredp-mouse-find-file)
+
+(el-get-init "haskell-mode")
+(el-get-init "ghc-mod")
+(el-get-init "cmake-mode")
+(setq auto-mode-alist
+	  (append
+	   '(("CMakeLists\\.txt\\'" . cmake-mode))
+	   '(("\\.cmake\\'" . cmake-mode))
+	   auto-mode-alist))
 
 ;; autoindent
 (add-hook 'rust-mode-hook '(lambda ()
